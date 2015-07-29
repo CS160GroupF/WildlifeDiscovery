@@ -1,77 +1,72 @@
 package com.example.raymondlin.wildlifediscoveryprototype;
 
+/**
+ * Created by raymondlin on 7/21/15.
+ */
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.app.Activity;
-import android.app.AlertDialog;
-
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
-public class RegisterActivity extends Activity {
-    int from_Where_I_Am_Coming = 0;
-    private DBHelper mydb ;
-
-    TextView username, password, email;
-
-    int id_To_Update = 0;
+public class RegisterActivity extends ActionBarActivity {
+    EditText ed1,ed2,ed3;
+    Button b1, b2;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameKey";
+    public static final String Phone = "phoneKey";
+    public static final String Email = "emailKey";
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_main);
 
-        username = (TextView) findViewById(R.id.editText);
-        password = (TextView) findViewById(R.id.editText2);
-        email = (TextView) findViewById(R.id.editText3);
+        ed1=(EditText)findViewById(R.id.editText);
+        ed2=(EditText)findViewById(R.id.editText2);
+        ed3=(EditText)findViewById(R.id.editText3);
 
-        mydb = new DBHelper(this);
+        b1=(Button)findViewById(R.id.button);
+        b2=(Button)findViewById(R.id.button2);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras !=null)
-        {
-            int Value = extras.getInt("id");
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = ed1.getText().toString();
+                String password = ed2.getText().toString();
+                String email = ed3.getText().toString();
 
-            if(Value>0){
-                //means this is the view part not the add contact part.
-                Cursor rs = mydb.getData(Value);
-                id_To_Update = Value;
-                rs.moveToFirst();
-
-                String nam = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_NAME));
-                String phon = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_PHONE));
-                String emai = rs.getString(rs.getColumnIndex(DBHelper.CONTACTS_COLUMN_EMAIL));
-
-                if (!rs.isClosed())
-                {
-                    rs.close();
+                if (sharedpreferences.contains(username)) {
+                    Toast.makeText(RegisterActivity.this, "Username already exists, please choose another", Toast.LENGTH_LONG).show();
+                } else {
+                    if (password.length() < 8) {
+                        Toast.makeText(RegisterActivity.this, "Password must be 8 characters or more", Toast.LENGTH_LONG).show();
+                    } else if (!email.contains("@")) {
+                        Toast.makeText(RegisterActivity.this, "Invalid Email", Toast.LENGTH_LONG).show();
+                    } else {
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString(username, password);
+                        editor.commit();
+                        Toast.makeText(RegisterActivity.this, "You have successfully registered", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
-                Button b = (Button)findViewById(R.id.button);
-                b.setVisibility(View.INVISIBLE);
-
-                username.setText((CharSequence)nam);
-                username.setFocusable(false);
-                username.setClickable(false);
-
-                password.setText((CharSequence)phon);
-                password.setFocusable(false);
-                password.setClickable(false);
-
-                email.setText((CharSequence)emai);
-                email.setFocusable(false);
-                email.setClickable(false);
             }
-        }
+        });
 
-
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -79,5 +74,19 @@ public class RegisterActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
