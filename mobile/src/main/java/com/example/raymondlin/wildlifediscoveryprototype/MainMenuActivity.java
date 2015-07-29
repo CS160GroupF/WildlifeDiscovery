@@ -3,16 +3,6 @@ package com.example.raymondlin.wildlifediscoveryprototype;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-/**
- * Created by raymondlin on 7/23/15.
- */
-import android.app.TabActivity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -25,28 +15,25 @@ public class MainMenuActivity extends TabActivity {
 
         TabHost tabHost = getTabHost();
 
-        // Tab for Photos
-        TabSpec photospec = tabHost.newTabSpec("Add Encounter");
+        TabSpec addspec = tabHost.newTabSpec("Add Encounter");
         // setting Title and Icon for the Tab
-//        photospec.setIndicator("Photos", getResources().getDrawable(R.drawable.icon_photos_tab));
-        Intent photosIntent = new Intent(this, AddEncounterActivity.class);
-        photospec.setContent(photosIntent);
+        addspec.setIndicator("Add Encounter");
+        Intent addIntent = new Intent(this, AddEncounterActivity.class);
+        addspec.setContent(addIntent);
 
-        // Tab for Songs
-        TabSpec songspec = tabHost.newTabSpec("View All Encounters");
-//        songspec.setIndicator("Songs", getResources().getDrawable(R.drawable.icon_songs_tab));
-        Intent songsIntent = new Intent(this, ViewEncountersActivity.class);
-        songspec.setContent(songsIntent);
+        TabSpec viewspec = tabHost.newTabSpec("View All Encounters");
+        viewspec.setIndicator("View All Encounters");
+        Intent viewIntent = new Intent(this, ViewEncountersActivity.class);
+        viewspec.setContent(viewIntent);
 
-        // Tab for Videos
-        TabSpec videospec = tabHost.newTabSpec("Notifications");
-//        videospec.setIndicator("Videos", getResources().getDrawable(R.drawable.icon_videos_tab));
-        Intent videosIntent = new Intent(this, NotificationActivity.class);
-        videospec.setContent(videosIntent);
+        TabSpec alertspec = tabHost.newTabSpec("Alerts");
+        alertspec.setIndicator("Alerts");
+        Intent alertIntent = new Intent(this, NotificationActivity.class);
+        alertspec.setContent(alertIntent);
 
         // Adding all TabSpec to TabHost
-        tabHost.addTab(photospec); // Adding photos tab
-        tabHost.addTab(songspec); // Adding songs tab
-        tabHost.addTab(videospec); // Adding videos tab
+        tabHost.addTab(addspec);
+        tabHost.addTab(viewspec);
+        tabHost.addTab(alertspec);
     }
 }

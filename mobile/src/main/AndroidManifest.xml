@@ -33,6 +33,11 @@
         </activity>
 
 
+        <activity android:name=".AddEncounterActivity" />
+        <activity android:name=".ViewEncountersActivity" />
+        <activity android:name=".NotificationActivity" />
+
+
     </application>
 
 </manifest>
