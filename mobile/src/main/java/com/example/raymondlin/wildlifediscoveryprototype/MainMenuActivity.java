@@ -18,17 +18,6 @@ public class MainMenuActivity extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
 
-
-        mydb = new DBHelper(this);
-        mydb.insertContact("hao", "415555", "@gmail", "22jump", "manhattan");
-
-        if (mydb.getAllCotacts().isEmpty()) {
-            Log.v("d_c", "empty");
-        }
-        for(String entry : mydb.getAllCotacts()) {
-            Log.v("Database_Check", entry);
-        }
-
         TabHost tabHost = getTabHost();
 
         TabSpec addspec = tabHost.newTabSpec("Add Encounter");
