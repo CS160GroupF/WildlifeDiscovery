@@ -11,22 +11,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * Created by raymondlin on 7/29/15.
+ * Created by raymondlin on 7/31/15.
  */
-public class NotificationActivity extends Activity {
+public class AddNotification extends Activity {
+
+
+    AlertDB mydb;
 
     Button back, set;
     EditText ed4, ed5, ed6;
-
-    public static final String MyPREFERENCES = "Notifications";
-    SharedPreferences sharedpreferences;
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_main);
 
-        final Intent view_encounters = new Intent(this, ViewEncountersActivity.class);
+        final Intent view_alerts = new Intent(this, ViewAlerts.class);
 
         back = (Button)findViewById(R.id.button3);
         set = (Button)findViewById(R.id.button4);
@@ -35,8 +34,7 @@ public class NotificationActivity extends Activity {
         ed5 = (EditText)findViewById(R.id.editText5);
         ed6 = (EditText)findViewById(R.id.editText6);
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
+        mydb = new AlertDB(this);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +43,7 @@ public class NotificationActivity extends Activity {
                 ed5.setText("");
                 ed6.setText("");
 
-                startActivity(view_encounters);
+                startActivity(view_alerts);
             }
         });
 
@@ -59,22 +57,18 @@ public class NotificationActivity extends Activity {
                     int radius = Integer.parseInt(ed5.getText().toString());
                     String note = ed6.getText().toString();
 
+                    mydb.insertAlert(animal_name, note, radius);
 
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                    editor.putString("animal_name", animal_name.toLowerCase());
-                    editor.putInt("radius", radius);
-                    editor.putString("note", note.toLowerCase());
-                    editor.commit();
-
-                    Toast.makeText(NotificationActivity.this, "Alert has been set", Toast.LENGTH_LONG).show();
-                    startActivity(view_encounters);
+                    Toast.makeText(AddNotification.this, "Alert has been set", Toast.LENGTH_LONG).show();
+                    startActivity(view_alerts);
 
                 } else {
-                    Toast.makeText(NotificationActivity.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNotification.this, "Please fill in all fields", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
+
 }

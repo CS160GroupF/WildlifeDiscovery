@@ -37,6 +37,9 @@
         <activity android:name=".ViewEncountersActivity" />
         <activity android:name=".NotificationActivity" />
 
+        <activity android:name=".ViewAlerts" />
+        <activity android:name=".AddNotification" />
+
 
     </application>
 

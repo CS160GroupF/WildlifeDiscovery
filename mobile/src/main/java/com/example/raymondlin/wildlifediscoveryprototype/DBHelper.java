@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // TODO Auto-generated method stub
         db.execSQL("create table encounters ("
                 + "id integer primary key autoincrement,"
-                + "name test,"
+                + "name text,"
                 + "time text,"
                 + "note text,"
                 + "place text,"

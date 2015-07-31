@@ -33,7 +33,7 @@ public class MainMenuActivity extends TabActivity {
 
         TabSpec alertspec = tabHost.newTabSpec("Alerts");
         alertspec.setIndicator("Alerts");
-        Intent alertIntent = new Intent(this, NotificationActivity.class);
+        Intent alertIntent = new Intent(this, ViewAlerts.class);
         alertspec.setContent(alertIntent);
 
         // Adding all TabSpec to TabHost
