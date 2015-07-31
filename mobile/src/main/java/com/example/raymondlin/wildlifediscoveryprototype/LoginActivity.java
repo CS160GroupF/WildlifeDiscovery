@@ -53,6 +53,8 @@ public class LoginActivity extends ActionBarActivity {
                     Toast.makeText(LoginActivity.this, "This username does not exist, please register", Toast.LENGTH_LONG).show();
                 } else if (sharedpreferences.getString(username, "no").equals(password)) {
                     Toast.makeText(LoginActivity.this, "Successful Log In", Toast.LENGTH_LONG).show();
+                    ed1.setText("");
+                    ed2.setText("");
                     startActivity(main_menu);
                 } else {
                     Toast.makeText(LoginActivity.this, "Wrong Password, Please Try Again", Toast.LENGTH_LONG).show();

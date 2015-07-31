@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertEncounter  (String name, String time, String note, String place, String photo)
+    public boolean insertEncounter (String name, String time, String note, String place, String photo)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

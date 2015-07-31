@@ -18,9 +18,6 @@ public class RegisterActivity extends ActionBarActivity {
     EditText ed1,ed2,ed3;
     Button b1, b2;
     public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String Name = "nameKey";
-    public static final String Phone = "phoneKey";
-    public static final String Email = "emailKey";
     SharedPreferences sharedpreferences;
 
     @Override
@@ -55,6 +52,10 @@ public class RegisterActivity extends ActionBarActivity {
                         editor.putString(username, password);
                         editor.commit();
                         Toast.makeText(RegisterActivity.this, "You have successfully registered", Toast.LENGTH_LONG).show();
+
+                        ed1.setText("");
+                        ed2.setText("");
+                        ed3.setText("");
                         finish();
                     }
                 }
@@ -64,6 +65,9 @@ public class RegisterActivity extends ActionBarActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ed1.setText("");
+                ed2.setText("");
+                ed3.setText("");
                 finish();
             }
         });
